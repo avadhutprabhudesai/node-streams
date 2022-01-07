@@ -1,0 +1,1 @@
+This is fs-file2.txt. The content should be read from stdin.
