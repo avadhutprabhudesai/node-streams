@@ -12,7 +12,7 @@ const fs = require('fs');
 function createLargeData() {
   let writer = fs.createWriteStream('src/samples/large.txt', 'utf-8');
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 2; i++) {
     writer.write(
       'Lorem Ipsum is simply dummy text of the printing and \ntypesetting industry. Lorem Ipsum has been the industrys standard dummy text ever\n.'
     );
@@ -29,21 +29,25 @@ function readLargeData() {
     highWaterMark: 5,
   });
 
-  let chunks = [];
-  reader.on('data', (chunk) => {
-    chunks.push(chunk);
-  });
-  reader.on('ready', () => {
-    console.log('Read Stream ready');
-    reader.pipe(process.stdout);
-  });
-  reader.on('close', () => {
-    console.log('Read Stream closed');
-  });
-  reader.on('error', (err) => {
-    console.log('Read Stream error');
-    console.log(err);
-  });
+  // Recommened way is to pipe it to a write stream
+  reader.pipe(process.stdout);
+
+  // But can also be done using fine grained method of handling events such as data, open, ready and close etc.
+  // let chunks = [];
+  // reader.on('data', (chunk) => {
+  //   chunks.push(chunk);
+  // });
+  // reader.on('ready', () => {
+  //   console.log('Read Stream ready');
+  //   reader.pipe(process.stdout);
+  // });
+  // reader.on('close', () => {
+  //   console.log('Read Stream closed');
+  // });
+  // reader.on('error', (err) => {
+  //   console.log('Read Stream error');
+  //   console.log(err);
+  // });
 }
 
 createLargeData();
