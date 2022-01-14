@@ -1,5 +1,5 @@
 // require('./builtins/fs');
-// require('./stream-module');
+require('./stream-module');
 // require('./builtins/zlib');
 // require('./builtins/net');
-require('./builtins/crypto');
+// require('./builtins/crypto');
